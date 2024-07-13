@@ -1,8 +1,8 @@
-var collections = JSON.parse(localStorage.getItem("collections")) || {};
+var collabCollections = JSON.parse(localStorage.getItem("collabCollections")) || {};
 
-function displayCollections() {
+function displayCollabCollections() {
     document.querySelector(".container").innerHTML = "";
-    for (var collectionName in collections) {
+    for (var collectionName in collabCollections) {
         var collectionBox = document.createElement("div");
         collectionBox.classList.add("collection-box");
 
@@ -12,7 +12,7 @@ function displayCollections() {
         var itemsContainer = document.createElement("div");
         itemsContainer.classList.add("items-container");
 
-        collections[collectionName].forEach(function (item, index) {
+        collabCollections[collectionName].forEach(function (item, index) {
             var itemBox = document.createElement("div");
             itemBox.classList.add("item-box");
 
@@ -42,7 +42,7 @@ function displayCollections() {
             var buttonrm = document.createElement("button");
             buttonrm.innerText = "Remove";
             buttonrm.addEventListener("click", function () {
-                removeFromCollection(collectionName, index);
+                removeFromCollabCollection(collectionName, index);
             });
 
             var buttonbag = document.createElement("button");
@@ -64,10 +64,10 @@ function displayCollections() {
     }
 }
 
-function removeFromCollection(collectionName, index) {
-    collections[collectionName].splice(index, 1);
-    localStorage.setItem("collections", JSON.stringify(collections));
-    displayCollections();
+function removeFromCollabCollection(collectionName, index) {
+    collabCollections[collectionName].splice(index, 1);
+    localStorage.setItem("collabCollections", JSON.stringify(collabCollections));
+    displayCollabCollections();
 }
 
 function moveToBag(item, collectionName, index) {
@@ -75,13 +75,13 @@ function moveToBag(item, collectionName, index) {
     baglist.unshift(item);
     localStorage.setItem("BagListObj", JSON.stringify(baglist));
 
-    collections[collectionName].splice(index, 1);
-    localStorage.setItem("collections", JSON.stringify(collections));
-    displayCollections();
+    collabCollections[collectionName].splice(index, 1);
+    localStorage.setItem("collabCollections", JSON.stringify(collabCollections));
+    displayCollabCollections();
 }
 
 document.getElementById("landingPage").addEventListener("click", function () {
     window.location.href = "../Landingpage/index.html";
 });
 
-displayCollections();
+displayCollabCollections();

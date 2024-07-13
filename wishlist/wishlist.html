@@ -14,7 +14,7 @@
 <body>
     <header>
         <div id="logo">
-            <img src="../Common Files/image/myntra-removebg-preview.png" alt="brandLoog" id="landingPage">
+            <img src="../Common Files/image/myntra-removebg-preview.png" alt="brandLogo" id="landingPage">
         </div>
         <ul id="nav_bar">
             <li><a href="../Homepages/menHomePage.html">men</a></li>
@@ -68,15 +68,17 @@
 
     <div class="closet-header">
         <h1>Your Closets</h1>
-        <div class="search-add">
-            <input type="text" id="search_bar" placeholder="Search for a wishlist...">
-            <button class="add-btn">+</button>
-            <button class="remove-btn">-</button>
+        <div class="dropdown">
+            <button class="dropbtn">▼</button>
+            <div class="dropdown-content">
+                <a href="wishlist.html">Your Closet</a>
+                <a href="collab_closet.html">Collab Closet</a>
+            </div>
         </div>
     </div>
-
+    
     <div class="container">
-        <!-- Wishlist collections will be displayed here -->
+        <!-- Wishlist items will be displayed here -->
     </div>
 
     <footer>
@@ -152,3 +154,4 @@
 <script src="../wishlist/wishlist.js"></script>
 <script src="../Common Files/hyperlinks.js"></script>
 <script src="../Common Files/headerMenu.js"></script>
+
