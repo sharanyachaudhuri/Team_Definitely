@@ -423,12 +423,12 @@ function displayCollections() {
         const profiles = [
             {
                 owner: "Sharanya",
-                profilePicture: "/Common Files/image/profile one.jpeg",
+                profilePicture: "/Common Files/image/sharanya_pfp.jpeg",
                 items: collections[collectionName] // Assuming womensData is the array of items
             },
             {
                 owner: "Nishtha",
-                profilePicture: "https://i.pravatar.cc/150?img=38",
+                profilePicture: "/Common Files/image/nishtha_pfp.jpeg",
                 items: womensData.slice(4, 8)
             }
         ];
