@@ -1,4 +1,4 @@
-var collections = JSON.parse(localStorage.getItem("collections")) || {};
+var collections = JSON.parse(localStorage.getItem("collabClosets")) || {};
 
 function displayCollections() {
     document.querySelector(".container").innerHTML = "";

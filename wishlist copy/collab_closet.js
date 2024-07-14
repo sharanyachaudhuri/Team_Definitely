@@ -1,215 +1,90 @@
-var womensData = [{
-    image_url: "https://bit.ly/3uHGEnN",
-    brand: "Anouk",
-    para: "Women Pink Self Design Kurta with Trousers & Dupatta",
-    rs: 791,
-    price: "Rs. 791",
-    strikedoffprice: "Rs. 3298",
-    offer: "(76% OFF)",
-    wishList: "Add to collection ♡",
-    addToBag: "ADD TO BAG",
-},
-// ... other items ...
-{
-    image_url: "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/11715910/2020/12/9/9442c1af-94fd-4c60-b9c8-044ed39535ec1607497230477-Rubans-Women-Silver-Plated-Oxidised-Elasticated-Bracelet-485-1.jpg",
-    brand: "Yoke",
-    para: "Women Silver-Plated Oxidised Elasticated Bracelet",
-    rs: 899,
-    price: "Rs. 899",
-    strikedoffprice: "Rs. 2999",
-    offer: "(65% OFF)",
-    wishList: "Add to collection ♡",
-    addToBag: "ADD TO BAG",
-},
-];
+var user = sessionStorage.getItem('user');
+var collections = JSON.parse(localStorage.getItem("collabClosets")) || {};
 
-var collections = JSON.parse(localStorage.getItem("collections")) || {
-    "Traditional": [],
-    "Summer": [],
-    "Myboard": [],
-    "Wedding": []
-};
 
-var collabClosets = JSON.parse(localStorage.getItem("collabClosets")) || {
-    "riya_and_seema": []
-    // More collab closets can be added here
-};
 
-window.addEventListener('load', function () {
-    displayPage(womensData);
-    populateCollectionDropdown();
-    populateCollabDropdown(); // New function to populate collab dropdown
-});
+function displayCollections() {
+    document.querySelector(".container").innerHTML = "";
+    for (var collectionName in collections) {
+        var collectionBox = document.createElement("div");
+        collectionBox.classList.add("collection-box");
 
-function displayPage(womensData) {
-    document.getElementById("container").innerHTML = "";
+        var collectionTitle = document.createElement("h4");
+        collectionTitle.textContent = collectionName;   
 
-    womensData.map(function (element) {
-        var box = document.createElement("div");
-        box.style.cursor = "pointer";
+        var itemsContainer = document.createElement("div");
+        itemsContainer.classList.add("items-container");
 
-        var img = document.createElement("img");
-        img.src = element.image_url;
+        collections[collectionName].forEach(function (item, index) {
+            var itemBox = document.createElement("div");
+            itemBox.classList.add("item-box");
 
-        var contentBox = document.createElement("div");
-        contentBox.setAttribute("class", "contentBox");
+            var img = document.createElement("img");
+            img.src = item.image_url;
 
-        var brand = document.createElement("h4");
-        brand.textContent = element.brand;
+            var brand = document.createElement("p");
+            brand.textContent = item.brand;
 
-        var para = document.createElement("p");
-        para.textContent = element.para;
+            var price = document.createElement("span");
+            price.textContent = item.price;
+            price.style.color = "black";
 
-        var mix = document.createElement("div");
-        mix.setAttribute("class", "mixbox");
+            var strikedprice = document.createElement("span");
+            strikedprice.textContent = item.strikedoffprice;
+            strikedprice.style.textDecoration = "line-through";
+            strikedprice.style.color = "gray";
 
-        var price = document.createElement("p");
-        price.textContent = element.price;
+            var offer = document.createElement("span");
+            offer.textContent = item.offer;
+            offer.style.color = "red";
 
-        var strikeprice = document.createElement("p");
-        strikeprice.textContent = element.strikedoffprice;
-        strikeprice.setAttribute("class", "strikep");
+            var pricepara = document.createElement("p");
+            pricepara.className = "pricepara";
+            pricepara.append(price, strikedprice, offer);
 
-        var offer = document.createElement("p");
-        offer.textContent = element.offer;
-        offer.setAttribute("class", "offerp");
+            var buttonrm = document.createElement("button");
+            buttonrm.innerText = "Remove";
+            buttonrm.addEventListener("click", function () {
+                removeFromCollection(collectionName, index);
+            });
 
-        mix.append(price, strikeprice, offer);
+            var buttonbag = document.createElement("button");
+            buttonbag.innerText = "MOVE TO BAG";
+            buttonbag.addEventListener("click", function () {
+                moveToBag(item, collectionName, index);
+            });
 
-        var wishList = document.createElement("p");
-        wishList.setAttribute("class", "wishListp");
-        wishList.textContent = element.wishList;
-        wishList.style.cursor = "pointer";
+            var buttonholder = document.createElement("div");
+            buttonholder.className = "buttonholder";
+            buttonholder.append(buttonrm, buttonbag);
 
-        wishList.addEventListener("click", debounce(function () {
-            openCollectionModal(element);
-        }, 300));
-
-        var addToBag = document.createElement("p");
-        addToBag.setAttribute("class", "addToBagp");
-        addToBag.textContent = element.addToBag;
-        addToBag.style.cursor = "pointer";
-
-        addToBag.addEventListener("click", function () {
-            addToBaglist(element);
-            addToBag.innerText = "ADDED TO BAG";
+            itemBox.append(img, brand, pricepara, buttonholder);
+            itemsContainer.append(itemBox);
         });
 
-        contentBox.append(brand, para, mix, wishList, addToBag);
-        box.append(img, contentBox);
-
-        document.querySelector("#container").append(box);
-    });
-}
-
-function openCollectionModal(item) {
-    var modal = document.getElementById("collection-modal");
-    modal.style.display = "block";
-    localStorage.setItem("currentItem", JSON.stringify(item));
-
-    document.getElementById("add-to-collection-btn").onclick = function () {
-        var collectionName = document.getElementById("collection-dropdown").value;
-        if (collectionName) {
-            addToCollection(item, collectionName);
-            modal.style.display = "none";
-        }
-    };
-
-    document.getElementById("add-to-collab-btn").onclick = function () {
-        var collabName = document.getElementById("collab-dropdown").value;
-        if (collabName) {
-            addToCollabCloset(item, collabName);
-            modal.style.display = "none";
-        }
-    };
-}
-
-function addToCollection(item, collectionName) {
-    if (!collections[collectionName]) {
-        collections[collectionName] = [];
+        collectionBox.append(collectionTitle, itemsContainer);
+        document.querySelector(".container").append(collectionBox);
     }
-    collections[collectionName].push(item);
+}
+
+function removeFromCollection(collectionName, index) {
+    collections[collectionName].splice(index, 1);
     localStorage.setItem("collections", JSON.stringify(collections));
-    alert(`Item added to ${collectionName.split('-')[0]} collection`);
+    displayCollections();
 }
 
-function addToCollabCloset(item, collabName) {
-    if (!collabClosets[collabName]) {
-        collabClosets[collabName] = [];
-    }
-    collabClosets[collabName].push(item);
-    localStorage.setItem("collabClosets", JSON.stringify(collabClosets));
-    alert(`Item added to ${collabName} collab closet`);
+function moveToBag(item, collectionName, index) {
+    var baglist = JSON.parse(localStorage.getItem("BagListObj")) || [];
+    baglist.unshift(item);
+    localStorage.setItem("BagListObj", JSON.stringify(baglist));
+
+    collections[collectionName].splice(index, 1);
+    localStorage.setItem("collections", JSON.stringify(collections));
+    displayCollections();
 }
 
-function addToBaglist(element) {
-    var bagList = JSON.parse(localStorage.getItem("BagListObj")) || [];
-    bagList.push(element);
-    localStorage.setItem("BagListObj", JSON.stringify(bagList));
-}
-
-document.getElementById("create-collection-btn").addEventListener("click", function () {
-    var user = sessionStorage.getItem('user');
-    var newCollectionName = document.getElementById("new-collection-name").value.trim();
-    if (newCollectionName && !collections[newCollectionName]) {
-        collections[newCollectionName + "-" + user] = [];
-        localStorage.setItem("collections", JSON.stringify(collections));
-        populateCollectionDropdown();
-        alert(`Collection ${newCollectionName} created`);
-    } else {
-        alert("Collection already exists or invalid name");
-    }
+document.getElementById("landingPage").addEventListener("click", function () {
+    window.location.href = "../Landingpage/index.html";
 });
 
-function populateCollectionDropdown() {
-    var collectionDropdown = document.getElementById("collection-dropdown");
-    collectionDropdown.innerHTML = "";
-
-    for (var collectionName in collections) {
-        var option = document.createElement("option");
-        option.value = collectionName;
-        option.text = collectionName.split('-')[0];
-        collectionDropdown.appendChild(option);
-    }
-}
-
-function populateCollabDropdown() {
-    var collabDropdown = document.getElementById("collab-dropdown");
-    collabDropdown.innerHTML = "";
-
-    for (var collabName in collabClosets) {
-        var option = document.createElement("option");
-        option.value = collabName;
-        option.text = collabName;
-        collabDropdown.appendChild(option);
-    }
-}
-
-document.getElementById("land").addEventListener("click", function () {
-    window.location.href = "/LandingPage/index.html";
-});
-
-var modal = document.getElementById("collection-modal");
-var span = document.getElementsByClassName("close")[0];
-
-span.onclick = function () {
-    modal.style.display = "none";
-}
-
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-window.ondblclick = function () {
-    modal.style.display = "none";
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-}
+displayCollections();
