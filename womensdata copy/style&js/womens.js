@@ -1,11 +1,11 @@
 var womensData = [{
-    image_url: "https://images-cdn.ubuy.co.in/654dc532627d0b3e301a6825-bell-bottom-jeans-for-women-high-waisted.jpg",
-    brand: "Chevron",
-    para: "Light Blue Bell Bottoms",
+    image_url: "https://bit.ly/3uHGEnN",
+    brand: "Anouk",
+    para: "Women Pink Self Design Kurta with Trousers & Dupatta",
     rs: 791,
-    price: "Rs. 1391",
-    strikedoffprice: "Rs. 2399",
-    offer: "(42% OFF)",
+    price: "Rs. 791",
+    strikedoffprice: "Rs. 3298",
+    offer: "(76% OFF)",
     wishList: "Add to collection ♡",
     addToBag: "ADD TO BAG",
 },
@@ -403,12 +403,14 @@ var collections = JSON.parse(localStorage.getItem("collections")) || {
     "Wedding": []
 };
 
-var collabClosets = JSON.parse(localStorage.getItem("collabClosets")) || {};
+var collabClosets = JSON.parse(localStorage.getItem("collabClosets")) || {
+    "riya_and_seema": []
+    // More collab closets can be added here
+};
 
 window.addEventListener('load', function () {
     displayPage(womensData);
     populateCollectionDropdown();
-    populateCollabDropdown();
 });
 
 function displayPage(womensData) {
@@ -416,15 +418,10 @@ function displayPage(womensData) {
 
     womensData.map(function (element) {
         var box = document.createElement("div");
+        box.style.cursor = "pointer";
 
         var img = document.createElement("img");
         img.src = element.image_url;
-        img.style.cursor = "pointer";  // Set cursor to pointer for the image to indicate it is clickable
-
-        // Add click event listener to the image
-        img.addEventListener("click", function () {
-            window.location.href = 'yourNewPage.html'; // Change to your target page URL
-        });
 
         var contentBox = document.createElement("div");
         contentBox.setAttribute("class", "contentBox");
@@ -465,8 +462,7 @@ function displayPage(womensData) {
         addToBag.textContent = element.addToBag;
         addToBag.style.cursor = "pointer";
 
-        addToBag.addEventListener("click", function (event) {
-            event.stopPropagation();  // Prevent event from bubbling up to the container
+        addToBag.addEventListener("click", function () {
             addToBaglist(element);
             addToBag.innerText = "ADDED TO BAG";
         });
@@ -477,7 +473,6 @@ function displayPage(womensData) {
         document.querySelector("#container").append(box);
     });
 }
-
 
 function openCollectionModal(item) {
     var modal = document.getElementById("collection-modal");
@@ -496,15 +491,6 @@ function openCollectionModal(item) {
         var collabName = document.getElementById("collab-dropdown").value;
         if (collabName) {
             addToCollabCloset(item, collabName);
-            modal.style.display = "none";
-        }
-    };
-
-    document.getElementById("create-collab-btn").onclick = function () {
-        var newCollabName = document.getElementById("new-collab-name").value.trim();
-        if (newCollabName) {
-            createCollabCloset(newCollabName);
-            addToCollabCloset(item, newCollabName);
             modal.style.display = "none";
         }
     };
@@ -528,17 +514,6 @@ function addToCollabCloset(item, collabName) {
     alert(`Item added to ${collabName} collab closet`);
 }
 
-function createCollabCloset(collabName) {
-    if (!collabClosets[collabName]) {
-        collabClosets[collabName] = [];
-        localStorage.setItem("collabClosets", JSON.stringify(collabClosets));
-        populateCollabDropdown();
-        alert(`Collab Closet ${collabName} created`);
-    } else {
-        alert("Collab Closet already exists");
-    }
-}
-
 function addToBaglist(element) {
     var bagList = JSON.parse(localStorage.getItem("BagListObj")) || [];
     bagList.push(element);
@@ -547,6 +522,7 @@ function addToBaglist(element) {
 
 document.getElementById("create-collection-btn").addEventListener("click", function () {
     var user = sessionStorage.getItem('user');
+    console.log(user)
     var newCollectionName = document.getElementById("new-collection-name").value.trim();
     if (newCollectionName && !collections[newCollectionName]) {
         collections[newCollectionName + "-" + user] = [];
@@ -567,18 +543,6 @@ function populateCollectionDropdown() {
         option.value = collectionName;
         option.text = collectionName.split('-')[0];
         collectionDropdown.appendChild(option);
-    }
-}
-
-function populateCollabDropdown() {
-    var collabDropdown = document.getElementById("collab-dropdown");
-    collabDropdown.innerHTML = "";
-
-    for (var collabName in collabClosets) {
-        var option = document.createElement("option");
-        option.value = collabName;
-        option.text = collabName;
-        collabDropdown.appendChild(option);
     }
 }
 

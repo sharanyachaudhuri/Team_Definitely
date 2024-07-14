@@ -1,4 +1,17 @@
+var user = sessionStorage.getItem('user');
 var collections = JSON.parse(localStorage.getItem("collections")) || {};
+
+var filteredCollections = {};
+
+for (var key in collections) {
+    // Check if the key contains the hyphen and the specific number after it
+    if (key.includes('-' + user)) {
+      // Add the key-value pair to the filteredCollections object
+      filteredCollections[key] = collections[key];
+    }
+  }
+var collections = filteredCollections;
+
 
 function displayCollections() {
     document.querySelector(".container").innerHTML = "";
@@ -7,7 +20,7 @@ function displayCollections() {
         collectionBox.classList.add("collection-box");
 
         var collectionTitle = document.createElement("h4");
-        collectionTitle.textContent = collectionName;
+        collectionTitle.textContent = collectionName.split('-')[0];
 
         var itemsContainer = document.createElement("div");
         itemsContainer.classList.add("items-container");

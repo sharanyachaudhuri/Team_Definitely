@@ -16,6 +16,7 @@ function loginfun(){
            if( checkpass(a)){
              console.log(checkpass(a))
              alert("login successful")
+             sessionStorage.setItem('user', document.querySelector("#mob").value);
              document.querySelector("#mob").value = ""; 
              document.querySelector("#pass").value = "";
 
