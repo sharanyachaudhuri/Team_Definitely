@@ -25,6 +25,7 @@ header {
     right: 0;
     background-color: #fff;
     opacity: 1;
+    z-index: 2;
 }
 
 header>* {
@@ -453,8 +454,10 @@ input[type="radio" i] {
     background-color: rgba(0, 0, 0, 0.6);
     animation: fadeIn 0.3s;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding-top: 150px; /* Adjust this value to move the modal content down */
+    padding-left: 50px; /* Adjust this value to add padding to the left */
 }
 
 .modal-content {
@@ -466,6 +469,7 @@ input[type="radio" i] {
     padding: 20px;
     text-align: center;
     animation: fadeIn 0.3s;
+    position: relative;
 }
 
 .modal-content h2 {

@@ -448,9 +448,9 @@ function displayPage(womensData) {
         wishList.textContent = element.wishList;
         wishList.style.cursor = "pointer";
 
-        wishList.addEventListener("click", function () {
+        wishList.addEventListener("click", debounce(function () {
             openCollectionModal(element);
-        });
+        }, 300));
 
         var addToBag = document.createElement("p");
         addToBag.setAttribute("class", "addToBagp");
@@ -536,4 +536,16 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+
+window.ondblclick = function () {
+    modal.style.display = "none";
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
 }
