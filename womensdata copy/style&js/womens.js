@@ -403,6 +403,11 @@ var collections = JSON.parse(localStorage.getItem("collections")) || {
     "Wedding": []
 };
 
+var collabClosets = JSON.parse(localStorage.getItem("collabClosets")) || {
+    "riya_and_seema": []
+    // More collab closets can be added here
+};
+
 window.addEventListener('load', function () {
     displayPage(womensData);
     populateCollectionDropdown();
@@ -448,9 +453,9 @@ function displayPage(womensData) {
         wishList.textContent = element.wishList;
         wishList.style.cursor = "pointer";
 
-        wishList.addEventListener("click", function () {
+        wishList.addEventListener("click", debounce(function () {
             openCollectionModal(element);
-        });
+        }, 300));
 
         var addToBag = document.createElement("p");
         addToBag.setAttribute("class", "addToBagp");
@@ -472,11 +477,20 @@ function displayPage(womensData) {
 function openCollectionModal(item) {
     var modal = document.getElementById("collection-modal");
     modal.style.display = "block";
+    localStorage.setItem("currentItem", JSON.stringify(item));
 
     document.getElementById("add-to-collection-btn").onclick = function () {
         var collectionName = document.getElementById("collection-dropdown").value;
         if (collectionName) {
             addToCollection(item, collectionName);
+            modal.style.display = "none";
+        }
+    };
+
+    document.getElementById("add-to-collab-btn").onclick = function () {
+        var collabName = document.getElementById("collab-dropdown").value;
+        if (collabName) {
+            addToCollabCloset(item, collabName);
             modal.style.display = "none";
         }
     };
@@ -488,7 +502,16 @@ function addToCollection(item, collectionName) {
     }
     collections[collectionName].push(item);
     localStorage.setItem("collections", JSON.stringify(collections));
-    alert(`Item added to ${collectionName} collection`);
+    alert(`Item added to ${collectionName.split('-')[0]} collection`);
+}
+
+function addToCollabCloset(item, collabName) {
+    if (!collabClosets[collabName]) {
+        collabClosets[collabName] = [];
+    }
+    collabClosets[collabName].push(item);
+    localStorage.setItem("collabClosets", JSON.stringify(collabClosets));
+    alert(`Item added to ${collabName} collab closet`);
 }
 
 function addToBaglist(element) {
@@ -498,9 +521,11 @@ function addToBaglist(element) {
 }
 
 document.getElementById("create-collection-btn").addEventListener("click", function () {
+    var user = sessionStorage.getItem('user');
+    console.log(user)
     var newCollectionName = document.getElementById("new-collection-name").value.trim();
     if (newCollectionName && !collections[newCollectionName]) {
-        collections[newCollectionName] = [];
+        collections[newCollectionName + "-" + user] = [];
         localStorage.setItem("collections", JSON.stringify(collections));
         populateCollectionDropdown();
         alert(`Collection ${newCollectionName} created`);
@@ -516,7 +541,7 @@ function populateCollectionDropdown() {
     for (var collectionName in collections) {
         var option = document.createElement("option");
         option.value = collectionName;
-        option.text = collectionName;
+        option.text = collectionName.split('-')[0];
         collectionDropdown.appendChild(option);
     }
 }
@@ -536,4 +561,16 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+
+window.ondblclick = function () {
+    modal.style.display = "none";
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
 }

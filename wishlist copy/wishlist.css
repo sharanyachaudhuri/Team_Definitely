@@ -21,6 +21,9 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header #logo img {
@@ -33,6 +36,7 @@ header ul {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-grow: 1;
 }
 
 header ul li {
@@ -223,6 +227,7 @@ footer section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 footer section h4 {
@@ -259,6 +264,7 @@ footer #right img {
     .closet-header {
         flex-direction: column;
         align-items: flex-start;
+        padding: 1rem;
     }
 
     .search-add {
@@ -276,6 +282,24 @@ footer #right img {
         width: 100%;
         margin-left: 0;
         margin-top: 0.5rem;
+    }
+
+    header ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header #search input {
+        width: 200px;
+    }
+
+    header #right_icon {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 95%;
     }
 }
 
@@ -298,6 +322,7 @@ footer #right img {
 .dropdown-content {
     display: none;
     position: absolute;
+    right: 0; /* Align dropdown to the right */
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

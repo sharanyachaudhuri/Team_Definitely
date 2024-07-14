@@ -403,9 +403,12 @@ var collections = JSON.parse(localStorage.getItem("collections")) || {
     "Wedding": []
 };
 
+var collabClosets = JSON.parse(localStorage.getItem("collabClosets")) || {};
+
 window.addEventListener('load', function () {
     displayPage(womensData);
     populateCollectionDropdown();
+    populateCollabDropdown();
 });
 
 function displayPage(womensData) {
@@ -472,11 +475,29 @@ function displayPage(womensData) {
 function openCollectionModal(item) {
     var modal = document.getElementById("collection-modal");
     modal.style.display = "block";
+    localStorage.setItem("currentItem", JSON.stringify(item));
 
     document.getElementById("add-to-collection-btn").onclick = function () {
         var collectionName = document.getElementById("collection-dropdown").value;
         if (collectionName) {
             addToCollection(item, collectionName);
+            modal.style.display = "none";
+        }
+    };
+
+    document.getElementById("add-to-collab-btn").onclick = function () {
+        var collabName = document.getElementById("collab-dropdown").value;
+        if (collabName) {
+            addToCollabCloset(item, collabName);
+            modal.style.display = "none";
+        }
+    };
+
+    document.getElementById("create-collab-btn").onclick = function () {
+        var newCollabName = document.getElementById("new-collab-name").value.trim();
+        if (newCollabName) {
+            createCollabCloset(newCollabName);
+            addToCollabCloset(item, newCollabName);
             modal.style.display = "none";
         }
     };
@@ -488,7 +509,27 @@ function addToCollection(item, collectionName) {
     }
     collections[collectionName].push(item);
     localStorage.setItem("collections", JSON.stringify(collections));
-    alert(`Item added to ${collectionName} collection`);
+    alert(`Item added to ${collectionName.split('-')[0]} collection`);
+}
+
+function addToCollabCloset(item, collabName) {
+    if (!collabClosets[collabName]) {
+        collabClosets[collabName] = [];
+    }
+    collabClosets[collabName].push(item);
+    localStorage.setItem("collabClosets", JSON.stringify(collabClosets));
+    alert(`Item added to ${collabName} collab closet`);
+}
+
+function createCollabCloset(collabName) {
+    if (!collabClosets[collabName]) {
+        collabClosets[collabName] = [];
+        localStorage.setItem("collabClosets", JSON.stringify(collabClosets));
+        populateCollabDropdown();
+        alert(`Collab Closet ${collabName} created`);
+    } else {
+        alert("Collab Closet already exists");
+    }
 }
 
 function addToBaglist(element) {
@@ -498,9 +539,10 @@ function addToBaglist(element) {
 }
 
 document.getElementById("create-collection-btn").addEventListener("click", function () {
+    var user = sessionStorage.getItem('user');
     var newCollectionName = document.getElementById("new-collection-name").value.trim();
     if (newCollectionName && !collections[newCollectionName]) {
-        collections[newCollectionName] = [];
+        collections[newCollectionName + "-" + user] = [];
         localStorage.setItem("collections", JSON.stringify(collections));
         populateCollectionDropdown();
         alert(`Collection ${newCollectionName} created`);
@@ -516,8 +558,20 @@ function populateCollectionDropdown() {
     for (var collectionName in collections) {
         var option = document.createElement("option");
         option.value = collectionName;
-        option.text = collectionName;
+        option.text = collectionName.split('-')[0];
         collectionDropdown.appendChild(option);
+    }
+}
+
+function populateCollabDropdown() {
+    var collabDropdown = document.getElementById("collab-dropdown");
+    collabDropdown.innerHTML = "";
+
+    for (var collabName in collabClosets) {
+        var option = document.createElement("option");
+        option.value = collabName;
+        option.text = collabName;
+        collabDropdown.appendChild(option);
     }
 }
 
