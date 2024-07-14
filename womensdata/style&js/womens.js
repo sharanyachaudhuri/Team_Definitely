@@ -1,11 +1,11 @@
 var womensData = [{
-    image_url: "https://bit.ly/3uHGEnN",
-    brand: "Anouk",
-    para: "Women Pink Self Design Kurta with Trousers & Dupatta",
+    image_url: "https://images-cdn.ubuy.co.in/654dc532627d0b3e301a6825-bell-bottom-jeans-for-women-high-waisted.jpg",
+    brand: "Chevron",
+    para: "Light Blue Bell Bottoms",
     rs: 791,
-    price: "Rs. 791",
-    strikedoffprice: "Rs. 3298",
-    offer: "(76% OFF)",
+    price: "Rs. 1391",
+    strikedoffprice: "Rs. 2399",
+    offer: "(42% OFF)",
     wishList: "Add to collection ♡",
     addToBag: "ADD TO BAG",
 },
@@ -416,10 +416,15 @@ function displayPage(womensData) {
 
     womensData.map(function (element) {
         var box = document.createElement("div");
-        box.style.cursor = "pointer";
 
         var img = document.createElement("img");
         img.src = element.image_url;
+        img.style.cursor = "pointer";  // Set cursor to pointer for the image to indicate it is clickable
+
+        // Add click event listener to the image
+        img.addEventListener("click", function () {
+            window.location.href = 'yourNewPage.html'; // Change to your target page URL
+        });
 
         var contentBox = document.createElement("div");
         contentBox.setAttribute("class", "contentBox");
@@ -460,7 +465,8 @@ function displayPage(womensData) {
         addToBag.textContent = element.addToBag;
         addToBag.style.cursor = "pointer";
 
-        addToBag.addEventListener("click", function () {
+        addToBag.addEventListener("click", function (event) {
+            event.stopPropagation();  // Prevent event from bubbling up to the container
             addToBaglist(element);
             addToBag.innerText = "ADDED TO BAG";
         });
@@ -471,6 +477,7 @@ function displayPage(womensData) {
         document.querySelector("#container").append(box);
     });
 }
+
 
 function openCollectionModal(item) {
     var modal = document.getElementById("collection-modal");
