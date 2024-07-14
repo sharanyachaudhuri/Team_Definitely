@@ -1,14 +1,4 @@
-var collections = JSON.parse(localStorage.getItem("collections")) || {
-    "Traditional": [],
-    "Summer": [],
-    "Myboard": [],
-    "Wedding": []
-};
-
-window.addEventListener('load', function () {
-    displayCollections();
-    populateCollectionDropdown();
-});
+var collections = JSON.parse(localStorage.getItem("collections")) || {};
 
 function displayCollections() {
     document.querySelector(".container").innerHTML = "";
@@ -94,57 +84,4 @@ document.getElementById("landingPage").addEventListener("click", function () {
     window.location.href = "../Landingpage/index.html";
 });
 
-document.getElementById("create-collection-btn").addEventListener("click", function () {
-    var newCollectionName = document.getElementById("new-collection-name").value.trim();
-    if (newCollectionName && !collections[newCollectionName]) {
-        collections[newCollectionName] = [];
-        localStorage.setItem("collections", JSON.stringify(collections));
-        populateCollectionDropdown();
-        alert(`Collection ${newCollectionName} created`);
-    } else {
-        alert("Collection already exists or invalid name");
-    }
-});
-
-function populateCollectionDropdown() {
-    var collectionDropdown = document.getElementById("collection-dropdown");
-    collectionDropdown.innerHTML = "";
-
-    for (var collectionName in collections) {
-        var option = document.createElement("option");
-        option.value = collectionName;
-        option.text = collectionName;
-        collectionDropdown.appendChild(option);
-    }
-}
-
-document.getElementById("add-to-collection-btn").onclick = function () {
-    var collectionName = document.getElementById("collection-dropdown").value;
-    var item = JSON.parse(localStorage.getItem("currentItem"));
-    if (collectionName) {
-        addToCollection(item, collectionName);
-        modal.style.display = "none";
-    }
-};
-
-function addToCollection(item, collectionName) {
-    if (!collections[collectionName]) {
-        collections[collectionName] = [];
-    }
-    collections[collectionName].push(item);
-    localStorage.setItem("collections", JSON.stringify(collections));
-    alert(`Item added to ${collectionName} collection`);
-}
-
-var modal = document.getElementById("collection-modal");
-var span = document.getElementsByClassName("close")[0];
-
-span.onclick = function () {
-    modal.style.display = "none";
-}
-
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+displayCollections();
