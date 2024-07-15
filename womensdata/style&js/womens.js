@@ -403,6 +403,20 @@ var collections = JSON.parse(localStorage.getItem("collections")) || {
     "Wedding": []
 };
 
+
+
+var user = sessionStorage.getItem('user');
+
+var filteredCollections = {};
+
+for (var key in collections) {
+    if (key.includes('-' + user)) {
+        filteredCollections[key] = collections[key];
+    }
+}
+
+collections = filteredCollections
+
 var collabClosets = JSON.parse(localStorage.getItem("collabClosets")) || {};
 
 window.addEventListener('load', function () {
@@ -561,6 +575,7 @@ document.getElementById("create-collection-btn").addEventListener("click", funct
 function populateCollectionDropdown() {
     var collectionDropdown = document.getElementById("collection-dropdown");
     collectionDropdown.innerHTML = "";
+   
 
     for (var collectionName in collections) {
         var option = document.createElement("option");

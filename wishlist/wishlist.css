@@ -9,6 +9,10 @@
 body {
     font-size: 1.6rem;
     background-color: #f4f4f4;
+    background-image: url('/Common Files/image/ribbons.png'); /* Dummy image URL */
+    background-size: cover; /* Ensure the background covers the entire page */
+    background-position: center; /* Center the background image */
+    background-attachment: fixed; /* Fix the background image */
     padding-top: 120px; /* Increased padding to prevent content from being covered by the header */
 }
 
@@ -142,11 +146,11 @@ header #right_icon span {
 .collection-box::after {
     content: '';
     position: absolute;
-    top: 10px;
+    top: 10px; /* Position at the top right */
     right: 10px;
-    width: 30px; /* Adjust the size as needed */
-    height: 30px;
-    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8Y2lyY2xlIGN4PSI4IiBjeT0iOCIgcj0iOCIgc3R5bGU9ImZpbGw6cmdiKDI1NSwyMTYsMjQ3KTsiIC8+Cjwvc3ZnPgo=') no-repeat center center;
+    width: 50px; /* Adjust the size as needed */
+    height: 50px;
+    background: url('/Common Files/image/1.png') no-repeat center center; /* Replace with your image URL */
     background-size: contain;
 }
 
@@ -347,4 +351,20 @@ footer #right img {
 
 .dropdown:hover .dropbtn {
     background-color: #e53935;
+}
+
+/* New CSS for partition and profile picture */
+.partition {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.partition img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
 }

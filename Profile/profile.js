@@ -20,7 +20,7 @@ function loginfun(){
              document.querySelector("#mob").value = ""; 
              document.querySelector("#pass").value = "";
 
-              window.location.href ="../payment/address.html";
+              window.location.href ="../Homepages/womenHomePage.html";
               break;
            }else{
              alert("wrong password")
