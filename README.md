@@ -87,6 +87,10 @@ Myntra style board
 
 ![Screenshot 2024-07-15 194810](https://github.com/user-attachments/assets/6fb49504-ae33-42a7-a35a-cb6f3384dbe9)
 
+Myntra style stories
+![Myntra (2)](https://github.com/user-attachments/assets/75f47c59-6a13-4f04-a5ec-0e75a85dee7a)
+
+
 
 
 
