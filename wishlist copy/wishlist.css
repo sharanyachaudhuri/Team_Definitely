@@ -9,10 +9,6 @@
 body {
     font-size: 1.6rem;
     background-color: #f4f4f4;
-    background-image: url('/Common Files/image/ribbons.png'); /* Dummy image URL */
-    background-size: cover; /* Ensure the background covers the entire page */
-    background-position: center; /* Center the background image */
-    background-attachment: fixed; /* Fix the background image */
     padding-top: 120px; /* Increased padding to prevent content from being covered by the header */
 }
 
@@ -25,6 +21,9 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header #logo img {
@@ -37,6 +36,7 @@ header ul {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-grow: 1;
 }
 
 header ul li {
@@ -142,7 +142,7 @@ header #right_icon span {
 .collection-box::after {
     content: '';
     position: absolute;
-    top: 10px;
+    top: 10px; /* Position at the top right */
     right: 10px;
     width: 50px; /* Adjust the size as needed */
     height: 50px;
@@ -227,6 +227,7 @@ footer section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 footer section h4 {
@@ -263,6 +264,7 @@ footer #right img {
     .closet-header {
         flex-direction: column;
         align-items: flex-start;
+        padding: 1rem;
     }
 
     .search-add {
@@ -280,6 +282,24 @@ footer #right img {
         width: 100%;
         margin-left: 0;
         margin-top: 0.5rem;
+    }
+
+    header ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header #search input {
+        width: 200px;
+    }
+
+    header #right_icon {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 95%;
     }
 }
 
@@ -302,6 +322,7 @@ footer #right img {
 .dropdown-content {
     display: none;
     position: absolute;
+    right: 0; /* Align dropdown to the right */
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -328,60 +349,18 @@ footer #right img {
     background-color: #e53935;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-hr {
-    width: 100% !important;
-}
-
-.profile-container {
+/* New CSS for partition and profile picture */
+.partition {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-top: 40px;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
 }
 
-.profile-picture {
+.partition img {
+    border-radius: 50%;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-}
-
-.profile-title {
-    font-size: 1.2em;
-    font-weight: bold;
+    margin-right: 1rem;
 }

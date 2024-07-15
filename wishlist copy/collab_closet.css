@@ -9,10 +9,6 @@
 body {
     font-size: 1.6rem;
     background-color: #f4f4f4;
-    background-image: url('/Common Files/image/ribbons.png'); /* Dummy image URL */
-    background-size: cover; /* Ensure the background covers the entire page */
-    background-position: center; /* Center the background image */
-    background-attachment: fixed; /* Fix the background image */
     padding-top: 120px; /* Increased padding to prevent content from being covered by the header */
 }
 
