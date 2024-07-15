@@ -90,6 +90,10 @@ Myntra style board
 Myntra style stories
 ![Myntra (2)](https://github.com/user-attachments/assets/75f47c59-6a13-4f04-a5ec-0e75a85dee7a)
 
+Cartina-Mascot
+![Screenshot 2024-07-15 234745](https://github.com/user-attachments/assets/249284f3-64b1-4370-85f8-8a4e18c987c2)
+
+
 
 
 
