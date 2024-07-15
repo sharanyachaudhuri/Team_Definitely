@@ -85,6 +85,9 @@ This project was developed as part of the Myntra Gen-Z Engagement Hackathon. We 
 Myntra style board
 ![Screenshot 2024-07-15 193548](https://github.com/user-attachments/assets/c6a6fef1-2633-4511-bf5f-509c6ac7cb1b)
 
+![Screenshot 2024-07-15 194810](https://github.com/user-attachments/assets/6fb49504-ae33-42a7-a35a-cb6f3384dbe9)
+
+
 
 
 
