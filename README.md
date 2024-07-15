@@ -48,12 +48,10 @@ This project aims to enhance Myntra's platform to better engage Gen-Z users by a
 
 ## Technical Stack
 
-- AR Development: Unity with AR Foundation, ARKit, and ARCore
-- Image Processing: OpenCV or Mediapipe
-- Cloud Storage: Firebase
-- Machine Learning: Various algorithms for recommendation systems
-- Frontend: React Native (assumed, based on mobile app development)
-- Backend: Node.js with Express (assumed, based on typical stack)
+- HTML
+- CSS
+- Javascript
+- Local storage for storing data
 
 ## Project Benefits
 
