@@ -82,6 +82,8 @@ This project aims to enhance Myntra's platform to better engage Gen-Z users by a
 
 This project was developed as part of the Myntra Gen-Z Engagement Hackathon. We believe our solution addresses the core challenges faced by Gen-Z users on the platform while introducing innovative and engaging features to enhance the overall shopping experience.
 
+Myntra style board
+![Screenshot 2024-07-15 193548](https://github.com/user-attachments/assets/c6a6fef1-2633-4511-bf5f-509c6ac7cb1b)
 
 
 
